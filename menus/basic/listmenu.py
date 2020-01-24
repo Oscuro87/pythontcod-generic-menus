@@ -72,6 +72,11 @@ class ListMenuElement:
 
 class ListMenu:
     def __init__(self, console: Console):
+        """
+        Creates a new ListMenu
+        :param console: The TCOD Console you wish to draw the menu upon. It can be the root console, as well
+            as a console that you blit on the root console afterwards.
+        """
         self.console = console
         self.is_active = False
         self.is_hidden = False
