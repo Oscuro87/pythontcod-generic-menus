@@ -12,6 +12,7 @@ Then, just import the menus, they are useable as is.
 * Generalisation
 * Credits
 * Proper tests
+* Graphical customization (colors, frame around the menu, ...)
 
 # A problem?
 Just open a ticket here on github, I'll reply asap.
