@@ -11,6 +11,7 @@ Then, just import the menus, they are useable as is.
 * More menus than the simple one
 * Generalisation
 * Credits
+* Proper tests
 
 # A problem?
 Just open a ticket here on github, I'll reply asap.
