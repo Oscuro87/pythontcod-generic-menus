@@ -6,6 +6,9 @@ Put this lib (everything but the test.py file) in your libtcod python project, p
 
 Then, just import the menus, they are useable as is.
 
+# Current state
+Massively WIP
+
 # TODO
 * Comments / doc
 * More menus than the simple one
