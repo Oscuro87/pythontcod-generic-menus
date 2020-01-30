@@ -1,6 +1,6 @@
 import tcod
 from tcod import event
-from menus.basic.listmenu import ListMenu
+from menus.basic.ListMenu import ListMenu
 import config as CFG
 from helpers.tools import create_console, paste_console_on
 
@@ -24,8 +24,8 @@ if __name__ == "__main__":
     menu1_console = create_console(20, 8)
     menu1 = ListMenu(menu1_console, True, False)
     # , printout, 1, **{'message': 'label {} activated'})
-    menu1.add_element("label 1").set_callback(printout).set_kwargs({'message': 'label 1 activated'})
-    menu1.add_element("label 2", printout, 2, **{'message': 'label {} activated'})
+    menu1.create_and_add_element("label 1").set_callback(printout).set_kwargs({'message': 'label 1 activated'})
+    menu1.add_element("element without attached callback", None)
     menu1.add_element("quit").set_cb(exit_soft).set_kwargs({'message': 'Exiting normally'})
 
     while True:
