@@ -1,6 +1,8 @@
+from tcod import event as TcodEvent
 from tcod.console import Console
 from typing import List, Callable, Optional
 import config as CFG
+from .menubase import MenuBase
 
 
 class ListMenuElement:
@@ -70,16 +72,20 @@ class ListMenuElement:
         return self
 
 
-class ListMenu:
-    def __init__(self, console: Console):
+class ListMenu(MenuBase):
+    """
+    A simple list menu with no special elements, just plain straight elements.
+    Each element can be assigned a callback (to which you can pass parameters through *args / **kwargs),
+        to interact with you app.
+    """
+
+    def __init__(self, console: Console, start_active: bool, start_hidden: bool):
         """
         Creates a new ListMenu
         :param console: The TCOD Console you wish to draw the menu upon. It can be the root console, as well
             as a console that you blit on the root console afterwards.
         """
-        self.console = console
-        self.is_active = False
-        self.is_hidden = False
+        super().__init__(console, start_active, start_hidden)
         self.selected_element_index = 0
         self.elements: List[ListMenuElement] = []
 
@@ -101,7 +107,7 @@ class ListMenu:
         Selects the next element of this menu's elements list
         :return: The resulting selected ListMenuElement, or None is the Menu has no element added to it
         """
-        if not self.is_active:
+        if not self.is_active():
             return self.get_selected_element()
 
         self.selected_element_index += 1
@@ -115,7 +121,7 @@ class ListMenu:
         Selects the previous element of this menu's elements list
         :return: The resulting selected ListMenuElement, or None is the Menu has no element added to it
         """
-        if not self.is_active:
+        if not self.is_active():
             return self.get_selected_element()
 
         if len(self.elements) > 0:
@@ -160,7 +166,9 @@ class ListMenu:
         Draws the menu on the console you specified at this menu instance's creation
         :return: Nothing
         """
-        if self.is_hidden:
+        super(ListMenu, self).draw()
+
+        if self.is_hidden():
             return
 
         if self.console.width < CFG.DRAW__MINIMUM_CONSOLE_WIDTH and CFG.DEBUG_MODE:
@@ -177,20 +185,3 @@ class ListMenu:
             else:
                 self.console.print(0, count, element.label)
             count += 1
-
-    def set_active(self, is_active: bool) -> None:
-        """
-        Sets whether this menu is active or not
-        Cannot change the selected element on inactive menus
-        :param is_active: Is the menu active or not?
-        :return: Nothing
-        """
-        self.is_active = is_active
-
-    def set_hidden(self, is_hidden: bool) -> None:
-        """
-        Sets whether the menu should be hidden or not
-        :param is_hidden: Is the menu hidden?
-        :return: Nothing
-        """
-        self.is_hidden = is_hidden
